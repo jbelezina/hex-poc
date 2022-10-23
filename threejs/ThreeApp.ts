@@ -2,10 +2,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import HexagonGrid from "./HexagonGrid";
 
-interface IDatGuiProps {
-  progress: number;
-}
-
 export default class ThreeApp {
   public scene: THREE.Scene;
   public renderer: THREE.WebGLRenderer;
@@ -13,7 +9,6 @@ export default class ThreeApp {
   public width: number;
   public height: number;
   public gui: any = null;
-  public datGuiProps: IDatGuiProps;
   public controls: OrbitControls;
   public raycaster = new THREE.Raycaster();
   public canvas;
@@ -152,14 +147,6 @@ export default class ThreeApp {
       );
       this.camera.position.set(0, -15, 10);
     }
-  }
-
-  setupDatGui(datGui) {
-    this.datGuiProps = {
-      progress: 0,
-    };
-    this.gui = new datGui();
-    this.gui.add(this.datGuiProps, "progress", 0, 1, 0.01);
   }
 
   setupResize() {
