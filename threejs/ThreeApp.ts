@@ -51,7 +51,7 @@ export default class ThreeApp {
     this.setHex(
       "decrement",
       meshes[0].object.name,
-      "#" + meshes[0].object.material.color.getHex().toString(16)
+      "#" + (meshes[0].object as any).material.color.getHex().toString(16)
     );
   }
 
@@ -69,7 +69,7 @@ export default class ThreeApp {
     this.setHex(
       "increment",
       meshes[0].object.name,
-      "#" + meshes[0].object.material.color.getHex().toString(16)
+      "#" + (meshes[0].object as any).material.color.getHex().toString(16)
     );
   }
 

@@ -43,7 +43,7 @@ export default class Hexagon {
   }
 
   setColor(color) {
-    this.hitArea.material.color.set(color);
+    (this.hitArea.material as any).color.set(color);
   }
 
   setTimeLogged(timeLogged) {

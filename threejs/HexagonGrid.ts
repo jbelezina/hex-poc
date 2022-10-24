@@ -55,7 +55,7 @@ export default class HexagonGrid {
     const mesh = hex[0].children[0] as Mesh;
 
     if (!mesh.userData.occupied) {
-      mesh.material.copy(this.taskColorMaterial);
+      (mesh.material as any).copy(this.taskColorMaterial);
       mesh.userData.occupied = true;
       return;
     }
@@ -63,7 +63,7 @@ export default class HexagonGrid {
     if (mesh.userData.occupied && mesh.scale.z < 10) {
       mesh.scale.z += 1;
       mesh.position.z += 0.25;
-      mesh.material.copy(this.taskColorMaterial);
+      (mesh.material as any).copy(this.taskColorMaterial);
     }
   }
 
@@ -79,7 +79,7 @@ export default class HexagonGrid {
       mesh.userData.occupied = false;
     }
     if (mesh.scale.z === 1 && mesh.userData.occupied === false) {
-      mesh.material.copy(this.neutralColorMaterial);
+      (mesh as any).material.copy(this.neutralColorMaterial);
     }
   }
 
