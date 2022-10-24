@@ -14,6 +14,7 @@ export default class ThreeApp {
   public canvas;
   public intersects = [];
   public hexGrid;
+  public setHex;
 
   constructor(canvas: HTMLCanvasElement, public mouse = new THREE.Vector2()) {
     this.canvas = canvas;
@@ -25,8 +26,7 @@ export default class ThreeApp {
     this.setupCamera();
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-
-    this.addObjects();
+    this.createBoard();
     this.resize();
 
     this.setupResize();
@@ -48,6 +48,11 @@ export default class ThreeApp {
     }
 
     this.hexGrid.decrement(meshes[0].object.parent.uuid);
+    this.setHex(
+      "decrement",
+      meshes[0].object.name,
+      "#" + meshes[0].object.material.color.getHex().toString(16)
+    );
   }
 
   handleClick(e) {
@@ -61,6 +66,11 @@ export default class ThreeApp {
     }
 
     this.hexGrid.increment(meshes[0].object.parent.uuid);
+    this.setHex(
+      "increment",
+      meshes[0].object.name,
+      "#" + meshes[0].object.material.color.getHex().toString(16)
+    );
   }
 
   checkPointerIntersects() {
@@ -159,12 +169,20 @@ export default class ThreeApp {
     this.camera.updateProjectionMatrix();
   }
 
-  addObjects() {
-    const hexGrid = new HexagonGrid(20, 20);
+  createBoard() {
+    const hexGrid = new HexagonGrid(this.scene, 20, 20, []);
     this.hexGrid = hexGrid;
     this.hexGrid.hexGrid.position.x += 15;
     this.hexGrid.hexGrid.position.y -= 5;
     this.scene.add(hexGrid.hexGrid);
+  }
+
+  setBoard(board) {
+    this.hexGrid.setContent(board);
+  }
+
+  setSetHex(setHex) {
+    this.setHex = setHex;
   }
 
   setTaskColor(color) {

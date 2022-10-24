@@ -1,10 +1,13 @@
 import ThreeApp from "../threejs/ThreeApp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useThree } from "../hooks/useThree";
 import { CirclePicker } from "react-color";
 import styles from "../styles/CirclePicker.module.css";
+import { useQuery, useMutation } from "../convex/_generated/react";
 
 export default function Home() {
+  const board = useQuery("getBoard") ?? [];
+  const setHex = useMutation("setHex");
   const [canvas, threeApp] = useThree(ThreeApp);
   const [currentColor, setCurrentColor] = useState("#ff00ff");
 
@@ -12,6 +15,18 @@ export default function Home() {
     setCurrentColor(color);
     threeApp.setTaskColor(color);
   };
+
+  useEffect(() => {
+    if (threeApp) {
+      threeApp.setSetHex(setHex);
+    }
+  }, [setHex, threeApp]);
+
+  useEffect(() => {
+    if (threeApp) {
+      threeApp.setBoard(board);
+    }
+  }, [board, threeApp]);
 
   return (
     <>

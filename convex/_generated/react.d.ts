@@ -18,6 +18,8 @@ import type {
   UseMutationForAPI,
   UseConvexForAPI,
 } from "convex/react";
+import type * as getBoard from "../getBoard";
+import type * as setHex from "../setHex";
 
 /**
  * A type describing your app's public Convex API.
@@ -28,7 +30,10 @@ import type {
  * This type should be used with type-parameterized classes like
  * `ConvexReactClient` to create app-specific types.
  */
-export type ConvexAPI = ApiFromModules<{}>;
+export type ConvexAPI = ApiFromModules<{
+  getBoard: typeof getBoard;
+  setHex: typeof setHex;
+}>;
 
 /**
  * Load a reactive query within a React component.

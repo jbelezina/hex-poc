@@ -21,8 +21,14 @@ export default class HexagonGrid {
     color: "#F6DDCC",
     colorWrite: true,
   });
+  public hexagons = {};
 
-  constructor(public rows: number, public columns: number) {
+  constructor(
+    public scene: any,
+    public rows: number,
+    public columns: number,
+    public board: any[]
+  ) {
     this.hexGrid.name = `hexGrid-${rows}-${columns}`;
     this.rows = rows;
     this.columns = columns;
@@ -32,6 +38,7 @@ export default class HexagonGrid {
       for (let x = 0; x <= columns - 1; x++) {
         const hexName = `${rowNo}-${x}`;
         const hexagon = new Hexagon(hexName, 1, 0xff00ff);
+        this.hexagons[hexName] = hexagon;
         hexagon.hex.position.y = rowNo * ((hexagon.height / 4) * 3);
         hexagon.hex.position.x -= hexagon.width * x + 1;
         if (rowNo % 2 === 0) {
@@ -74,6 +81,14 @@ export default class HexagonGrid {
     if (mesh.scale.z === 1 && mesh.userData.occupied === false) {
       mesh.material.copy(this.neutralColorMaterial);
     }
+  }
+
+  setContent(board) {
+    board.forEach((boardHex) => {
+      const matchingHex = this.hexagons[boardHex.hexId];
+      matchingHex.setColor(boardHex.colorHex);
+      matchingHex.setTimeLogged(boardHex.timeLogged);
+    });
   }
 
   setTaskColor(color: string) {

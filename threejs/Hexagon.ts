@@ -41,4 +41,21 @@ export default class Hexagon {
     this.outline.visible = true;
     this.hex.add(this.hitArea, this.outline);
   }
+
+  setColor(color) {
+    this.hitArea.material.color.set(color);
+  }
+
+  setTimeLogged(timeLogged) {
+    const prevTimeLogged = this.hitArea.scale.z - 1;
+    this.hitArea.scale.z = timeLogged + 1;
+    const diff = timeLogged - prevTimeLogged;
+    if (diff > 0) {
+      this.hitArea.position.z += diff * 0.25;
+    } else if (diff < 0) {
+      this.hitArea.position.z -= Math.abs(diff) * 0.25;
+    } else if (prevTimeLogged === 0) {
+      this.hitArea.position.z += diff * 0.25;
+    }
+  }
 }
