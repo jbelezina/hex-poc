@@ -1,3 +1,12 @@
+## What is this
+
+A reactive hexagonal board. Select a color and then play with hexagons using right / left click. 
+
+## Demo
+
+https://incredible-taiyaki-ac561f.netlify.app/
+
+
 ## Getting Started
 
 ```bash
